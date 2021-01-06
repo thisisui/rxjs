@@ -154,10 +154,102 @@ const input2Source$ = Observable.fromEvent(
 );
 
 input2Source$.subscribe((e) => {
-  Observable.fromPromise(getUser(e.target.value)).subscribe((x) => {
-    console.log({ x });
-    document.getElementById("name").innerText = x.data.name;
-    document.getElementById("location").innerText = x.data.location;
-    document.getElementById("repos").innerText = x.data.public_repos;
-  });
+  Observable.fromPromise(getUser(e.target.value))
+    .map((user) => user.data)
+    .subscribe((x) => {
+      console.log({ x });
+      document.getElementById("name").innerText = x.name;
+      document.getElementById("location").innerText = x.location;
+      document.getElementById("repos").innerText = x.public_repos;
+    });
 });
+
+// Interval, Timer & Range
+
+const source3$ = Observable.interval(100).take(5);
+
+source3$.subscribe(
+  (x) => {
+    console.log({ x });
+  },
+  (err) => console.log(err),
+  (complete) => console.log("Completed!")
+);
+
+const source4$ = Observable.timer(5000, 2000).take(5);
+
+source4$.subscribe(
+  (x) => {
+    console.log({ x });
+  },
+  (err) => console.log(err),
+  (complete) => console.log("Completed!")
+);
+
+const source5$ = Observable.range(25, 100);
+
+source5$.subscribe(
+  (x) => {
+    console.log({ x });
+  },
+  (err) => console.log(err),
+  (complete) => console.log("Completed!")
+);
+
+// Map
+const source6$ = Observable.interval(1000)
+  .take(10)
+  .map((v) => v * v);
+
+source6$.subscribe((v) => console.log(v));
+
+const source7$ = Observable.from(["John", "Maria", "Tom"])
+  .map((v) => v.toUpperCase())
+  .map((v) => `I am ${v}`);
+
+source7$.subscribe((v) => console.log(v));
+
+// Pluck
+const users = [
+  { name: "John", age: 20 },
+  { name: "Tom", age: 25 },
+  { name: "Maria", age: 30 },
+];
+
+const users$ = Observable.from(users).pluck("name");
+
+users$.subscribe((x) => console.log(x));
+
+// Merge
+
+Observable.of("Hello")
+  .merge(Observable.of("Everyone"))
+  .subscribe((x) => console.log(x));
+
+Observable.interval(2000)
+  .merge(Observable.interval(500))
+  .take(25)
+  .subscribe((x) => console.log(x));
+
+const source8$ = Observable.interval(2000).map((v) => `Merge1: ${v}`);
+const source9$ = Observable.interval(500).map((v) => `Merge2: ${v}`);
+
+Observable.merge(source8$, source9$)
+  .take(25)
+  .subscribe((x) => console.log(x));
+
+// Concat - one after another
+
+const source10$ = Observable.range(0, 5).map((v) => `Source10: ${v}`);
+const source11$ = Observable.range(6, 5).map((v) => `Source11: ${v}`);
+
+Observable.concat(source10$, source11$).subscribe((x) => console.log(x));
+
+// MergeMap
+Observable.of("Hello").subscribe((v) => {
+  Observable.of(v + " Everyone").subscribe((x) => console.log(x));
+});
+
+Observable.of("Hello")
+  .mergeMap((v) => Observable.of(v + "Everyone!"))
+  .subscribe();
