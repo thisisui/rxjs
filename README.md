@@ -1,30 +1,49 @@
-# Reactive Programming
+# RxJS Boiler
 
-- paradigm works with asynchronous data streams
-- data streams may be created from
-  - UI Events
-  - HTTP Request
-  - File Systems
-  - Array-like Objects
-  - Memory / Cache
+Boilerplate for building RxJS applications in a Webpack environment
 
-### A stream
+> Note:
+> The video explaining RxJS and making use of this repo is located here:
+>
+> https://www.youtube.com/watch?v=ei7FsoXKPl0
 
-- sequence of ongoing events ordered in time
-- emits a value, error and complete signal
+### Version
+1.0.0
 
-Mouse movement is never complete
+This uses RxJS version 5 - [https://github.com/ReactiveX/rxjs](https://github.com/ReactiveX/rxjs)
 
-## Observables
+### Usage
 
-- Created to watch streams and emit functions when a value, error or completed signal is returned
-- Can be subscribed to by an observer
-- Will constantly watch streams and will update accordingly
-- We can interact with data streams as any regular array
 
-## Reactive extensions / reactiveX
+### Installation
 
-- a library for composing asynchronous programs by using observable sequences
-- provides a long list of operators which allow us to filter, select, transform, combine and compose observables
+RxJS Boiler requires [Node.js](https://nodejs.org/) v4+ to run.
 
-## JavaScript -> RxJs
+Install dependencies (Webpack, Babel, RxJS 5, jQuery)
+
+```sh
+$ npm install
+```
+
+### Compile
+To compile all js to dist/app.bundle.js
+
+```sh
+$ webpack
+```
+To watch run
+```sh
+$ webpack -w
+```
+
+### Run
+Install live-server globally
+```sh
+$ npm install live-server -g
+```
+
+```sh
+$ npm start
+```
+
+Visit [http://localhost:8000](http://localhost:8000)

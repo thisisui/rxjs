@@ -15,7 +15,10 @@
     "webpack": "^1.13.2"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "http": "0.0.1-security",
     "http-server": "^0.12.3",
+    "jsonp": "^0.2.1",
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.6.3"
   }
